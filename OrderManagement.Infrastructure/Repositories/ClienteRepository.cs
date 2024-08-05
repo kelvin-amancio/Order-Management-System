@@ -10,14 +10,16 @@ namespace OrderManagement.Infrastructure.Repositories
         private readonly AppDbContext _appDbContext = appDbContext;
 
         public async Task<IEnumerable<Cliente>> GetAllAsync() => await _appDbContext.Cliente.AsNoTracking().ToListAsync();
-
+        
         public async Task<Cliente?> GetByIdAsync(int id) => await _appDbContext.Cliente.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        
         public async Task<Cliente> CreateAsync(Cliente cliente)
         {
             await _appDbContext.Cliente.AddAsync(cliente);
             await _appDbContext.SaveChangesAsync();
             return cliente;
         }
+        
         public async Task<Cliente?> UpdateAsync(Cliente cliente)
         {
             var result = await _appDbContext.Cliente.AsNoTracking().FirstOrDefaultAsync(x => x.Id == cliente.Id);

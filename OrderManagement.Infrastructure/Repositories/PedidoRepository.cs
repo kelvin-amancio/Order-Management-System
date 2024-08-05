@@ -10,7 +10,9 @@ namespace OrderManagement.Infrastructure.Repositories
         private readonly AppDbContext _appDbContext = appDbContext;
 
         public async Task<IEnumerable<Pedido>> GetAllAsync() => await _appDbContext.Pedido.Include(x => x.Cliente).ToListAsync();
+        
         public async Task<Pedido?> GetByIdAsync(int id) => await _appDbContext.Pedido.Include(x => x.Cliente).FirstOrDefaultAsync(x => x.Id == id);
+        
         public async Task<Pedido> CreateAsync(Pedido pedido)
         {
             await _appDbContext.Pedido.AddAsync(pedido);
